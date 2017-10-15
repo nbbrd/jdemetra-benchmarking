@@ -16,10 +16,11 @@
  */
 package ec.nbdemetra.benchmarking;
 
+import ec.benchmarking.DentonDocument2;
+import ec.nbdemetra.benchmarking.ui.Ts2ProcessingViewer2;
 import ec.nbdemetra.ws.WorkspaceFactory;
 import ec.nbdemetra.ws.WorkspaceItem;
 import ec.nbdemetra.ws.ui.WorkspaceTopComponent;
-import ec.tss.disaggregation.documents.DentonDocument;
 import ec.ui.view.tsprocessing.Ts2ProcessingViewer;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
@@ -48,16 +49,16 @@ import org.openide.windows.TopComponent;
     "CTL_DentonTopComponent=Denton Window",
     "HINT_DentonTopComponent=This is a Denton window"
 })
-public final class DentonTopComponent extends WorkspaceTopComponent<DentonDocument> {
+public final class DentonTopComponent extends WorkspaceTopComponent<DentonDocument2> {
 
-    protected Ts2ProcessingViewer panel;
+    protected Ts2ProcessingViewer2 panel;
 
     public DentonTopComponent() {
         super(null);
         //initDocument();
     }
 
-    public DentonTopComponent(WorkspaceItem<DentonDocument> doc) {
+    public DentonTopComponent(WorkspaceItem<DentonDocument2> doc) {
         super(doc);
         initDocument();
     }
@@ -66,7 +67,7 @@ public final class DentonTopComponent extends WorkspaceTopComponent<DentonDocume
         setName(getDocument().getDisplayName());
         setToolTipText(Bundle.CTL_CholetteTopComponent());
         initComponents();
-        panel = Ts2ProcessingViewer.create(this.getDocument().getElement(), "Series", "Constraint");
+        panel = Ts2ProcessingViewer2.create(this.getDocument().getElement(), "Series", "Constraint");
         add(panel);
     }
 

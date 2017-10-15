@@ -16,11 +16,11 @@
  */
 package ec.nbdemetra.benchmarking;
 
+import ec.benchmarking.CholetteDocument2;
+import ec.nbdemetra.benchmarking.ui.Ts2ProcessingViewer2;
 import ec.nbdemetra.ws.WorkspaceFactory;
 import ec.nbdemetra.ws.WorkspaceItem;
 import ec.nbdemetra.ws.ui.WorkspaceTopComponent;
-import ec.tss.disaggregation.documents.CholetteDocument;
-import ec.ui.view.tsprocessing.Ts2ProcessingViewer;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -47,16 +47,16 @@ import org.openide.windows.TopComponent;
     "CTL_CholetteTopComponent=Cholette Window",
     "HINT_CholetteTopComponent=This is a Cholette window"
 })
-public final class CholetteTopComponent extends WorkspaceTopComponent<CholetteDocument> {
+public final class CholetteTopComponent extends WorkspaceTopComponent<CholetteDocument2> {
 
-    protected Ts2ProcessingViewer panel;
+    protected Ts2ProcessingViewer2 panel;
 
     public CholetteTopComponent() {
         super(null);
         //initDocument();
     }
 
-    public CholetteTopComponent(WorkspaceItem<CholetteDocument> doc) {
+    public CholetteTopComponent(WorkspaceItem<CholetteDocument2> doc) {
         super(doc);
         initDocument();
     }
@@ -66,7 +66,7 @@ public final class CholetteTopComponent extends WorkspaceTopComponent<CholetteDo
         setToolTipText(Bundle.CTL_CholetteTopComponent());
         initComponents();
         //       node=new InternalNode();
-        panel = Ts2ProcessingViewer.create(this.getDocument().getElement(), "Series", "Constraint");
+        panel = Ts2ProcessingViewer2.create(this.getDocument().getElement(), "Series", "Constraint");
         add(panel);
     }
 
@@ -160,7 +160,7 @@ public final class CholetteTopComponent extends WorkspaceTopComponent<CholetteDo
 //
 //                @Override
 //                public void setValue(Object t) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-//                    CholetteDocument document = getDocument().getElement();
+//                    CholetteDocument2 document = getDocument().getElement();
 //                    UniCholetteSpecification nspec = document.getSpecification().clone();
 //                    nspec.setRho((Double)t);
 //                    document.setSpecification(nspec);
@@ -188,7 +188,7 @@ public final class CholetteTopComponent extends WorkspaceTopComponent<CholetteDo
 //
 //                @Override
 //                public void setValue(Object t) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-//                    CholetteDocument document = getDocument().getElement();
+//                    CholetteDocument2 document = getDocument().getElement();
 //                    UniCholetteSpecification nspec = document.getSpecification().clone();
 //                    nspec.setLambda((Double)t);
 //                    setSpecification(nspec);
@@ -220,7 +220,7 @@ public final class CholetteTopComponent extends WorkspaceTopComponent<CholetteDo
 ////
 ////                @Override
 ////                public void setValue(Object t) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-////                    CholetteDocument document = getDocument().getElement();
+////                    CholetteDocument2 document = getDocument().getElement();
 ////                    UniCholetteSpecification nspec = document.getSpecification().clone();
 ////                    // to do
 ////                    document.setSpecification(nspec);
@@ -248,7 +248,7 @@ public final class CholetteTopComponent extends WorkspaceTopComponent<CholetteDo
 //
 //                @Override
 //                public void setValue(Object t) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-//                    CholetteDocument document = getDocument().getElement();
+//                    CholetteDocument2 document = getDocument().getElement();
 //                    UniCholetteSpecification nspec = document.getSpecification().clone();
 //                    nspec.setAggregationFrequency((TsFrequency)t);
 //                    document.setSpecification(nspec);

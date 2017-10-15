@@ -16,13 +16,11 @@
  */
 package ec.nbdemetra.benchmarking.actions;
 
+import ec.benchmarking.DentonDocument2;
 import ec.nbdemetra.benchmarking.DentonDocumentManager;
-import ec.nbdemetra.benchmarking.MultiCholetteDocumentManager;
 import ec.nbdemetra.ws.Workspace;
 import ec.nbdemetra.ws.WorkspaceFactory;
 import ec.nbdemetra.ws.WorkspaceItem;
-import ec.tss.disaggregation.documents.DentonDocument;
-import ec.tss.disaggregation.documents.MultiCholetteDocument;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.openide.awt.ActionID;
@@ -49,7 +47,7 @@ public final class DentonNewDocument implements ActionListener {
         DentonDocumentManager mgr = WorkspaceFactory.getInstance().getManager(DentonDocumentManager.class);
         if (mgr != null) {
             Workspace ws = WorkspaceFactory.getInstance().getActiveWorkspace();
-            WorkspaceItem<DentonDocument> ndoc = mgr.create(ws);
+            WorkspaceItem<DentonDocument2> ndoc = mgr.create(ws);
             mgr.openDocument(ndoc);
         }
     }
