@@ -20,7 +20,7 @@ import ec.nbdemetra.benchmarking.CholetteDocumentManager;
 import ec.nbdemetra.ws.Workspace;
 import ec.nbdemetra.ws.WorkspaceFactory;
 import ec.nbdemetra.ws.WorkspaceItem;
-import ec.tss.disaggregation.documents.CholetteDocument;
+import ec.benchmarking.CholetteDocument2;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.openide.awt.ActionID;
@@ -44,7 +44,7 @@ public final class CholetteNewDocument implements ActionListener {
         CholetteDocumentManager mgr=WorkspaceFactory.getInstance().getManager(CholetteDocumentManager.class);
         if (mgr != null){
             Workspace ws=WorkspaceFactory.getInstance().getActiveWorkspace();
-            WorkspaceItem<CholetteDocument> ndoc = mgr.create(ws);
+            WorkspaceItem<CholetteDocument2> ndoc = mgr.create(ws);
             mgr.openDocument(ndoc);
         }
     }

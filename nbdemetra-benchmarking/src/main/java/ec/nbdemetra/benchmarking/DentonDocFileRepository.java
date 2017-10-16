@@ -19,7 +19,7 @@ package ec.nbdemetra.benchmarking;
 import ec.nbdemetra.ws.DefaultFileItemRepository;
 import ec.nbdemetra.ws.IWorkspaceItemRepository;
 import ec.nbdemetra.ws.WorkspaceItem;
-import ec.tss.disaggregation.documents.DentonDocument;
+import ec.benchmarking.DentonDocument2;
 import ec.tstoolkit.MetaData;
 import java.util.Date;
 import org.openide.util.lookup.ServiceProvider;
@@ -29,13 +29,13 @@ import org.openide.util.lookup.ServiceProvider;
  * @author palatej
  */
 @ServiceProvider(service = IWorkspaceItemRepository.class)
-public final class DentonDocFileRepository extends DefaultFileItemRepository<DentonDocument> {
+public final class DentonDocFileRepository extends DefaultFileItemRepository<DentonDocument2> {
 
     public static final String REPOSITORY = "DentonDoc";
 
     @Override
-    public Class<DentonDocument> getSupportedType() {
-        return DentonDocument.class;
+    public Class<DentonDocument2> getSupportedType() {
+        return DentonDocument2.class;
     }
 
     @Override
@@ -44,8 +44,8 @@ public final class DentonDocFileRepository extends DefaultFileItemRepository<Den
     }
 
     @Override
-    public boolean save(WorkspaceItem<DentonDocument> doc) {
-        DentonDocument element = doc.getElement();
+    public boolean save(WorkspaceItem<DentonDocument2> doc) {
+        DentonDocument2 element = doc.getElement();
         element.getMetaData().put(MetaData.DATE, new Date().toString());
         return super.save(doc);
     }

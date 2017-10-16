@@ -16,6 +16,7 @@
  */
 package ec.nbdemetra.benchmarking;
 
+import ec.benchmarking.DentonDocument2;
 import ec.nbdemetra.benchmarking.descriptors.DentonSpecUI;
 import ec.nbdemetra.benchmarking.ui.DentonViewFactory;
 import ec.nbdemetra.disaggregation.descriptors.BasicSpecUI;
@@ -25,7 +26,6 @@ import ec.nbdemetra.ws.AbstractWorkspaceItemManager;
 import ec.nbdemetra.ws.IWorkspaceItemManager;
 import ec.nbdemetra.ws.WorkspaceFactory;
 import ec.nbdemetra.ws.WorkspaceItem;
-import ec.tss.disaggregation.documents.DentonDocument;
 import ec.tss.disaggregation.documents.DentonSpecification;
 import ec.tstoolkit.descriptors.IObjectDescriptor;
 import ec.tstoolkit.utilities.Id;
@@ -41,19 +41,19 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(
         service = IWorkspaceItemManager.class,
         position = 1000)
-public class DentonDocumentManager extends AbstractWorkspaceItemManager<DentonDocument> {
+public class DentonDocumentManager extends AbstractWorkspaceItemManager<DentonDocument2> {
 
    static {
         CustomPropertyEditorRegistry.INSTANCE.registerEnumEditor(BasicSpecUI.AggregationType.class);
   
-        DocumentUIServices.getDefault().register(DentonDocument.class, new DocumentUIServices.AbstractUIFactory<DentonSpecification, DentonDocument>() {
+        DocumentUIServices.getDefault().register(DentonDocument2.class, new DocumentUIServices.AbstractUIFactory<DentonSpecification, DentonDocument2>() {
             @Override
-            public IObjectDescriptor<DentonSpecification> getSpecificationDescriptor(DentonDocument document) {
+            public IObjectDescriptor<DentonSpecification> getSpecificationDescriptor(DentonDocument2 document) {
                  return new DentonSpecUI(document.getSpecification().clone());
             }
 
             @Override
-            public IProcDocumentView<DentonDocument> getDocumentView(DentonDocument document) {
+            public IProcDocumentView<DentonDocument2> getDocumentView(DentonDocument2 document) {
                 return DentonViewFactory.getDefault().create(document);
             }
 
@@ -75,8 +75,8 @@ public class DentonDocumentManager extends AbstractWorkspaceItemManager<DentonDo
     }
 
     @Override
-    protected DentonDocument createNewObject() {
-        return new DentonDocument();
+    protected DentonDocument2 createNewObject() {
+        return new DentonDocument2();
     }
 
     @Override
@@ -99,7 +99,7 @@ public class DentonDocumentManager extends AbstractWorkspaceItemManager<DentonDo
         return new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                WorkspaceItem<DentonDocument> doc = (WorkspaceItem<DentonDocument>) WorkspaceFactory.getInstance().getActiveWorkspace().searchDocument(child);
+                WorkspaceItem<DentonDocument2> doc = (WorkspaceItem<DentonDocument2>) WorkspaceFactory.getInstance().getActiveWorkspace().searchDocument(child);
                 if (doc != null) {
                     openDocument(doc);
                 }
@@ -107,7 +107,7 @@ public class DentonDocumentManager extends AbstractWorkspaceItemManager<DentonDo
         };
     }
 
-    public void openDocument(WorkspaceItem<DentonDocument> item) {
+    public void openDocument(WorkspaceItem<DentonDocument2> item) {
         if (item.isOpen()) {
             item.getView().requestActive();
         } else {
@@ -119,7 +119,7 @@ public class DentonDocumentManager extends AbstractWorkspaceItemManager<DentonDo
 
     @Override
     public Class getItemClass() {
-        return DentonDocument.class;
+        return DentonDocument2.class;
     }
 
     @Override
