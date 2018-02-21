@@ -21,6 +21,7 @@ import ec.nbdemetra.ws.IWorkspaceItemRepository;
 import ec.nbdemetra.ws.WorkspaceItem;
 import ec.tss.disaggregation.documents.TsDisaggregationModelDocument;
 import ec.tstoolkit.MetaData;
+import internal.workspace.file.TsDisaggregationDocHandler;
 import java.util.Date;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -31,12 +32,8 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = IWorkspaceItemRepository.class)
 public final class TsDisaggregationModelDocFileRepository extends DefaultFileItemRepository<TsDisaggregationModelDocument> {
 
-    public static final String REPOSITORY = "TsDisaggregationDoc";
-
-    @Override
-    public Class<TsDisaggregationModelDocument> getSupportedType() {
-        return TsDisaggregationModelDocument.class;
-    }
+    @Deprecated
+    public static final String REPOSITORY = TsDisaggregationDocHandler.REPOSITORY;
 
     @Override
     public String getRepository() {
@@ -44,9 +41,27 @@ public final class TsDisaggregationModelDocFileRepository extends DefaultFileIte
     }
 
     @Override
-    public boolean save(WorkspaceItem<TsDisaggregationModelDocument> doc) {
-        TsDisaggregationModelDocument element = doc.getElement();
+    public boolean load(WorkspaceItem<TsDisaggregationModelDocument> item) {
+        return loadFile(item, (TsDisaggregationModelDocument o) -> {
+            item.setElement(o);
+            item.resetDirty();
+        });
+    }
+
+    @Override
+    public boolean save(WorkspaceItem<TsDisaggregationModelDocument> item) {
+        TsDisaggregationModelDocument element = item.getElement();
         element.getMetaData().put(MetaData.DATE, new Date().toString());
-        return super.save(doc);
+        return storeFile(item, element, item::resetDirty);
+    }
+
+    @Override
+    public boolean delete(WorkspaceItem<TsDisaggregationModelDocument> doc) {
+        return deleteFile(doc);
+    }
+
+    @Override
+    public Class<TsDisaggregationModelDocument> getSupportedType() {
+        return TsDisaggregationModelDocument.class;
     }
 }

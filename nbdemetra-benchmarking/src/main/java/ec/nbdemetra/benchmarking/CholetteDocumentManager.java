@@ -29,6 +29,7 @@ import ec.tstoolkit.descriptors.IObjectDescriptor;
 import ec.tstoolkit.utilities.Id;
 import ec.tstoolkit.utilities.LinearId;
 import ec.ui.view.tsprocessing.IProcDocumentView;
+import internal.workspace.file.CholetteDocHandler;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -60,7 +61,7 @@ public class CholetteDocumentManager extends AbstractWorkspaceItemManager<Cholet
         });
     }
     
-    public static final LinearId ID = new LinearId("Benchmarking", "Univariate", "Cholette");
+    public static final LinearId ID = CholetteDocHandler.FAMILY;
     public static final String PATH = "cholette";
     public static final String ITEMPATH = "cholette.item";
     public static final String CONTEXTPATH = "cholette.context";

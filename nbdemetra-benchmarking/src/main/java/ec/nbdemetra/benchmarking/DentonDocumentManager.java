@@ -31,6 +31,7 @@ import ec.tstoolkit.descriptors.IObjectDescriptor;
 import ec.tstoolkit.utilities.Id;
 import ec.tstoolkit.utilities.LinearId;
 import ec.ui.view.tsprocessing.IProcDocumentView;
+import internal.workspace.file.DentonDocHandler;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -59,7 +60,7 @@ public class DentonDocumentManager extends AbstractWorkspaceItemManager<DentonDo
 
         });
     }
-    public static final LinearId ID = new LinearId("Benchmarking", "Univariate", "Denton");
+    public static final LinearId ID = DentonDocHandler.FAMILY;
     public static final String PATH = "denton";
     public static final String ITEMPATH = "denton.item";
     public static final String CONTEXTPATH = "denton.context";

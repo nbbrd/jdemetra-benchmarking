@@ -25,6 +25,7 @@ import ec.nbdemetra.ws.WorkspaceItem;
 import ec.tss.disaggregation.documents.CalendarizationDocument;
 import ec.tstoolkit.utilities.Id;
 import ec.tstoolkit.utilities.LinearId;
+import internal.workspace.file.CalendarizationDocHandler;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -40,7 +41,7 @@ import org.openide.util.lookup.ServiceProvider;
         position = 4000)
 public class CalendarizationDocumentManager extends AbstractWorkspaceItemManager<CalendarizationDocument> {
 
-    public static final LinearId ID = new LinearId("Benchmarking", "Calendarization");
+    public static final LinearId ID = CalendarizationDocHandler.FAMILY;
     public static final String PATH = "calendarization";
     public static final String ITEMPATH = "calendarization.item";
     public static final String CONTEXTPATH = "calendarization.context";

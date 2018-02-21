@@ -32,6 +32,7 @@ import ec.tstoolkit.timeseries.simplets.TsDomain;
 import ec.tstoolkit.utilities.Id;
 import ec.tstoolkit.utilities.LinearId;
 import ec.ui.view.tsprocessing.IProcDocumentView;
+import internal.workspace.file.TsDisaggregationDocHandler;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -69,7 +70,7 @@ public class TsDisaggregationModelManager extends AbstractWorkspaceItemManager<T
             }
         });
     }
-    public static final LinearId ID = new LinearId("Temporal disaggregation", "Regression model");
+    public static final LinearId ID = TsDisaggregationDocHandler.FAMILY;
     public static final String PATH = "tsdisaggregationmodel.doc";
     public static final String ITEMPATH = "tsdisaggregationmodel.doc.item";
     public static final String CONTEXTPATH = "tsdisaggregationmodel.doc.context";
