@@ -16,11 +16,11 @@
  */
 package internal.workspace.file;
 
-import ec.benchmarking.CholetteDocument2;
 import ec.demetra.workspace.WorkspaceFamily;
 import ec.demetra.workspace.file.FileFormat;
 import ec.demetra.workspace.file.spi.FamilyHandler;
 import ec.demetra.workspace.file.util.InformationSetSupport;
+import ec.tss.disaggregation.documents.CholetteDocument;
 import ec.tstoolkit.utilities.LinearId;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -36,6 +36,6 @@ public final class CholetteDocHandler implements FamilyHandler {
 
     @lombok.experimental.Delegate
     private final FamilyHandler delegate = InformationSetSupport
-            .of(CholetteDocument2::new, REPOSITORY)
+            .of(CholetteDocument::new, REPOSITORY)
             .asHandler(WorkspaceFamily.of(FAMILY), FileFormat.GENERIC);
 }
