@@ -16,7 +16,7 @@
  */
 package ec.nbdemetra.benchmarking.ui;
 
-import ec.benchmarking.DentonDocument2;
+import ec.tss.disaggregation.documents.DentonDocument;
 import ec.tss.disaggregation.documents.BenchmarkingResults;
 import ec.tstoolkit.utilities.DefaultInformationExtractor;
 import ec.tstoolkit.utilities.Id;
@@ -35,19 +35,19 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Jean Palate
  */
-public class DentonViewFactory extends ProcDocumentViewFactory<DentonDocument2> {
+public class DentonViewFactory extends ProcDocumentViewFactory<DentonDocument> {
 
     public static final String INPUT = "Input", RESULTS = "Results";
     public static final Id RESULTS_MAIN = new LinearId(RESULTS);
 
-    private static final IProcDocumentViewFactory<DentonDocument2> INSTANCE = new DentonViewFactory();
+    private static final IProcDocumentViewFactory<DentonDocument> INSTANCE = new DentonViewFactory();
 
-    public static IProcDocumentViewFactory<DentonDocument2> getDefault() {
+    public static IProcDocumentViewFactory<DentonDocument> getDefault() {
         return INSTANCE;
     }
 
     private DentonViewFactory() {
-        registerFromLookup(DentonDocument2.class);
+        registerFromLookup(DentonDocument.class);
     }
 
     @Override
@@ -55,20 +55,20 @@ public class DentonViewFactory extends ProcDocumentViewFactory<DentonDocument2> 
         return RESULTS_MAIN; //To change body of generated methods, choose Tools | Templates.
     }
 
-    private static class DentonExtractor extends DefaultInformationExtractor<DentonDocument2, BenchmarkingResults> {
+    private static class DentonExtractor extends DefaultInformationExtractor<DentonDocument, BenchmarkingResults> {
 
         static final DentonExtractor INSTANCE = new DentonExtractor();
 
         @Override
-        public BenchmarkingResults retrieve(DentonDocument2 source) {
+        public BenchmarkingResults retrieve(DentonDocument source) {
             return source.getResults();
         }
     };
 
-    private static class ItemFactory<I> extends ComposedProcDocumentItemFactory<DentonDocument2, I> {
+    private static class ItemFactory<I> extends ComposedProcDocumentItemFactory<DentonDocument, I> {
 
-        public ItemFactory(Id itemId, InformationExtractor<? super DentonDocument2, I> informationExtractor, ItemUI<? extends IProcDocumentView<DentonDocument2>, I> itemUI) {
-            super(DentonDocument2.class, itemId, informationExtractor, itemUI);
+        public ItemFactory(Id itemId, InformationExtractor<? super DentonDocument, I> informationExtractor, ItemUI<? extends IProcDocumentView<DentonDocument>, I> itemUI) {
+            super(DentonDocument.class, itemId, informationExtractor, itemUI);
         }
     }
 
