@@ -23,7 +23,7 @@ import ec.nbdemetra.ws.AbstractWorkspaceItemManager;
 import ec.nbdemetra.ws.IWorkspaceItemManager;
 import ec.nbdemetra.ws.WorkspaceFactory;
 import ec.nbdemetra.ws.WorkspaceItem;
-import ec.benchmarking.CholetteDocument2;
+import ec.tss.disaggregation.documents.CholetteDocument;
 import ec.tss.disaggregation.documents.UniCholetteSpecification;
 import ec.tstoolkit.descriptors.IObjectDescriptor;
 import ec.tstoolkit.utilities.Id;
@@ -43,17 +43,17 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(
         service = IWorkspaceItemManager.class,
 position = 1500)
-public class CholetteDocumentManager extends AbstractWorkspaceItemManager<CholetteDocument2> {
+public class CholetteDocumentManager extends AbstractWorkspaceItemManager<CholetteDocument> {
 
    static {
-        DocumentUIServices.getDefault().register(CholetteDocument2.class, new DocumentUIServices.AbstractUIFactory<UniCholetteSpecification, CholetteDocument2>() {
+        DocumentUIServices.getDefault().register(CholetteDocument.class, new DocumentUIServices.AbstractUIFactory<UniCholetteSpecification, CholetteDocument>() {
             @Override
-            public IObjectDescriptor<UniCholetteSpecification> getSpecificationDescriptor(CholetteDocument2 document) {
+            public IObjectDescriptor<UniCholetteSpecification> getSpecificationDescriptor(CholetteDocument document) {
                  return new CholetteSpecUI(document.getSpecification().clone());
             }
 
             @Override
-            public IProcDocumentView<CholetteDocument2> getDocumentView(CholetteDocument2 document) {
+            public IProcDocumentView<CholetteDocument> getDocumentView(CholetteDocument document) {
                 return CholetteViewFactory.getDefault().create(document);
             }
 
@@ -76,8 +76,8 @@ public class CholetteDocumentManager extends AbstractWorkspaceItemManager<Cholet
     }
 
     @Override
-    protected CholetteDocument2 createNewObject() {
-        return new CholetteDocument2();
+    protected CholetteDocument createNewObject() {
+        return new CholetteDocument();
     }
 
     @Override
@@ -100,7 +100,7 @@ public class CholetteDocumentManager extends AbstractWorkspaceItemManager<Cholet
         return new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                WorkspaceItem<CholetteDocument2> doc = (WorkspaceItem<CholetteDocument2>) WorkspaceFactory.getInstance().getActiveWorkspace().searchDocument(child);
+                WorkspaceItem<CholetteDocument> doc = (WorkspaceItem<CholetteDocument>) WorkspaceFactory.getInstance().getActiveWorkspace().searchDocument(child);
                 if (doc != null) {
                     openDocument(doc);
                 }
@@ -110,7 +110,7 @@ public class CholetteDocumentManager extends AbstractWorkspaceItemManager<Cholet
 
     @Override
     public Class getItemClass() {
-        return CholetteDocument2.class;
+        return CholetteDocument.class;
     }
 
     @Override
@@ -118,7 +118,7 @@ public class CholetteDocumentManager extends AbstractWorkspaceItemManager<Cholet
         return ImageUtilities.loadImageIcon("ec/nbdemetra/benchmarking/resource-monitor_16x16.png", false);
     }
 
-    public void openDocument(WorkspaceItem<CholetteDocument2> item) {
+    public void openDocument(WorkspaceItem<CholetteDocument> item) {
         if (item.isOpen()) {
             item.getView().requestActive();
         } else {

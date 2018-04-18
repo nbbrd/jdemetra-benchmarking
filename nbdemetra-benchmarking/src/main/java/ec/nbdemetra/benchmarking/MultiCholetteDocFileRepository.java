@@ -18,20 +18,44 @@ package ec.nbdemetra.benchmarking;
 
 import ec.nbdemetra.ws.DefaultFileItemRepository;
 import ec.nbdemetra.ws.IWorkspaceItemRepository;
+import ec.nbdemetra.ws.WorkspaceItem;
 import ec.tss.disaggregation.documents.MultiCholetteDocument;
+import internal.workspace.file.MultiCholetteDocHandler;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  * @author Jean Palate
- */@ServiceProvider(service = IWorkspaceItemRepository.class)
-public class MultiCholetteDocFileRepository extends DefaultFileItemRepository<MultiCholetteDocument>{
+ */
+@ServiceProvider(service = IWorkspaceItemRepository.class)
+public class MultiCholetteDocFileRepository extends DefaultFileItemRepository<MultiCholetteDocument> {
 
-   public static final String REPOSITORY = "MultiCholetteDoc";
-    
-     @Override
+    @Deprecated
+    public static final String REPOSITORY = MultiCholetteDocHandler.REPOSITORY;
+
+    @Override
     public String getRepository() {
         return REPOSITORY;
+    }
+
+    @Override
+    public boolean load(WorkspaceItem<MultiCholetteDocument> item) {
+        return loadFile(item, (MultiCholetteDocument o) -> {
+            item.setElement(o);
+            item.resetDirty();
+        });
+    }
+
+    @Override
+    public boolean save(WorkspaceItem<MultiCholetteDocument> item) {
+        MultiCholetteDocument element = item.getElement();
+//        element.getMetaData().put(MetaData.DATE, new Date().toString());
+        return storeFile(item, element, item::resetDirty);
+    }
+
+    @Override
+    public boolean delete(WorkspaceItem<MultiCholetteDocument> doc) {
+        return deleteFile(doc);
     }
 
     @Override
@@ -39,4 +63,3 @@ public class MultiCholetteDocFileRepository extends DefaultFileItemRepository<Mu
         return MultiCholetteDocument.class;
     }
 }
-

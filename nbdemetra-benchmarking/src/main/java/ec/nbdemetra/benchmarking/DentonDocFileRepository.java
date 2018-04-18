@@ -19,8 +19,9 @@ package ec.nbdemetra.benchmarking;
 import ec.nbdemetra.ws.DefaultFileItemRepository;
 import ec.nbdemetra.ws.IWorkspaceItemRepository;
 import ec.nbdemetra.ws.WorkspaceItem;
-import ec.benchmarking.DentonDocument2;
+import ec.tss.disaggregation.documents.DentonDocument;
 import ec.tstoolkit.MetaData;
+import internal.workspace.file.DentonDocHandler;
 import java.util.Date;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -29,14 +30,10 @@ import org.openide.util.lookup.ServiceProvider;
  * @author palatej
  */
 @ServiceProvider(service = IWorkspaceItemRepository.class)
-public final class DentonDocFileRepository extends DefaultFileItemRepository<DentonDocument2> {
+public final class DentonDocFileRepository extends DefaultFileItemRepository<DentonDocument> {
 
-    public static final String REPOSITORY = "DentonDoc";
-
-    @Override
-    public Class<DentonDocument2> getSupportedType() {
-        return DentonDocument2.class;
-    }
+    @Deprecated
+    public static final String REPOSITORY = DentonDocHandler.REPOSITORY;
 
     @Override
     public String getRepository() {
@@ -44,9 +41,27 @@ public final class DentonDocFileRepository extends DefaultFileItemRepository<Den
     }
 
     @Override
-    public boolean save(WorkspaceItem<DentonDocument2> doc) {
-        DentonDocument2 element = doc.getElement();
+    public boolean load(WorkspaceItem<DentonDocument> item) {
+        return loadFile(item, (DentonDocument o) -> {
+            item.setElement(o);
+            item.resetDirty();
+        });
+    }
+
+    @Override
+    public boolean save(WorkspaceItem<DentonDocument> item) {
+        DentonDocument element = item.getElement();
         element.getMetaData().put(MetaData.DATE, new Date().toString());
-        return super.save(doc);
+        return storeFile(item, element, item::resetDirty);
+    }
+
+    @Override
+    public boolean delete(WorkspaceItem<DentonDocument> doc) {
+        return deleteFile(doc);
+    }
+
+    @Override
+    public Class<DentonDocument> getSupportedType() {
+        return DentonDocument.class;
     }
 }

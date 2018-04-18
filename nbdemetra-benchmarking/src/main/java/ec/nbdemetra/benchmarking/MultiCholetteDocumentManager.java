@@ -23,6 +23,7 @@ import ec.nbdemetra.ws.WorkspaceItem;
 import ec.tss.disaggregation.documents.MultiCholetteDocument;
 import ec.tstoolkit.utilities.Id;
 import ec.tstoolkit.utilities.LinearId;
+import internal.workspace.file.MultiCholetteDocHandler;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -36,7 +37,7 @@ import org.openide.util.lookup.ServiceProvider;
  */
 @ServiceProvider(
         service = IWorkspaceItemManager.class,
-position = 3000)
+        position = 3000)
 public class MultiCholetteDocumentManager extends AbstractWorkspaceItemManager<MultiCholetteDocument> {
 
 //    static {
@@ -57,8 +58,7 @@ public class MultiCholetteDocumentManager extends AbstractWorkspaceItemManager<M
 //            }
 //        });
 //    }
-    
-    public static final LinearId ID = new LinearId("Benchmarking", "Multivariate", "Cholette");
+    public static final LinearId ID = MultiCholetteDocHandler.FAMILY;
     public static final String PATH = "mcholette";
     public static final String ITEMPATH = "mcholette.item";
     public static final String CONTEXTPATH = "mcholette.context";

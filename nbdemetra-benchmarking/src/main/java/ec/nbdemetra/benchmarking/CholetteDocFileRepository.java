@@ -16,11 +16,12 @@
  */
 package ec.nbdemetra.benchmarking;
 
-import ec.benchmarking.CholetteDocument2;
 import ec.nbdemetra.ws.DefaultFileItemRepository;
 import ec.nbdemetra.ws.IWorkspaceItemRepository;
 import ec.nbdemetra.ws.WorkspaceItem;
+import ec.tss.disaggregation.documents.CholetteDocument;
 import ec.tstoolkit.MetaData;
+import internal.workspace.file.CholetteDocHandler;
 import java.util.Date;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -29,14 +30,10 @@ import org.openide.util.lookup.ServiceProvider;
  * @author palatej
  */
 @ServiceProvider(service = IWorkspaceItemRepository.class)
-public final class CholetteDocFileRepository extends DefaultFileItemRepository<CholetteDocument2> {
+public final class CholetteDocFileRepository extends DefaultFileItemRepository<CholetteDocument> {
 
-    public static final String REPOSITORY = "CholetteDoc";
-
-    @Override
-    public Class<CholetteDocument2> getSupportedType() {
-        return CholetteDocument2.class;
-    }
+    @Deprecated
+    public static final String REPOSITORY = CholetteDocHandler.REPOSITORY;
 
     @Override
     public String getRepository() {
@@ -44,9 +41,27 @@ public final class CholetteDocFileRepository extends DefaultFileItemRepository<C
     }
 
     @Override
-    public boolean save(WorkspaceItem<CholetteDocument2> doc) {
-        CholetteDocument2 element = doc.getElement();
+    public boolean load(WorkspaceItem<CholetteDocument> item) {
+        return loadFile(item, (CholetteDocument o) -> {
+            item.setElement(o);
+            item.resetDirty();
+        });
+    }
+
+    @Override
+    public boolean save(WorkspaceItem<CholetteDocument> item) {
+        CholetteDocument element = item.getElement();
         element.getMetaData().put(MetaData.DATE, new Date().toString());
-        return super.save(doc);
+        return storeFile(item, element, item::resetDirty);
+    }
+
+    @Override
+    public boolean delete(WorkspaceItem<CholetteDocument> doc) {
+        return deleteFile(doc);
+    }
+
+    @Override
+    public Class<CholetteDocument> getSupportedType() {
+        return CholetteDocument.class;
     }
 }

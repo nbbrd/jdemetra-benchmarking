@@ -17,7 +17,7 @@
 package ec.nbdemetra.benchmarking.ui;
 
 import ec.tss.disaggregation.documents.BenchmarkingResults;
-import ec.benchmarking.CholetteDocument2;
+import ec.tss.disaggregation.documents.CholetteDocument;
 import ec.tstoolkit.utilities.DefaultInformationExtractor;
 import ec.tstoolkit.utilities.Id;
 import ec.tstoolkit.utilities.InformationExtractor;
@@ -35,19 +35,19 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Jean Palate
  */
-public class CholetteViewFactory extends ProcDocumentViewFactory<CholetteDocument2> {
+public class CholetteViewFactory extends ProcDocumentViewFactory<CholetteDocument> {
 
     public static final String INPUT = "Input", RESULTS = "Results";
     public static final Id RESULTS_MAIN = new LinearId(RESULTS);
 
-    private static final IProcDocumentViewFactory<CholetteDocument2> INSTANCE = new CholetteViewFactory();
+    private static final IProcDocumentViewFactory<CholetteDocument> INSTANCE = new CholetteViewFactory();
 
-    public static IProcDocumentViewFactory<CholetteDocument2> getDefault() {
+    public static IProcDocumentViewFactory<CholetteDocument> getDefault() {
         return INSTANCE;
     }
 
     private CholetteViewFactory() {
-        registerFromLookup(CholetteDocument2.class);
+        registerFromLookup(CholetteDocument.class);
     }
 
     @Override
@@ -55,20 +55,20 @@ public class CholetteViewFactory extends ProcDocumentViewFactory<CholetteDocumen
         return RESULTS_MAIN; //To change body of generated methods, choose Tools | Templates.
     }
 
-    private static class CholetteExtractor extends DefaultInformationExtractor<CholetteDocument2, BenchmarkingResults> {
+    private static class CholetteExtractor extends DefaultInformationExtractor<CholetteDocument, BenchmarkingResults> {
 
         static final CholetteExtractor INSTANCE = new CholetteExtractor();
 
         @Override
-        public BenchmarkingResults retrieve(CholetteDocument2 source) {
+        public BenchmarkingResults retrieve(CholetteDocument source) {
             return source.getResults();
         }
     };
 
-    private static class ItemFactory<I> extends ComposedProcDocumentItemFactory<CholetteDocument2, I> {
+    private static class ItemFactory<I> extends ComposedProcDocumentItemFactory<CholetteDocument, I> {
 
-        public ItemFactory(Id itemId, InformationExtractor<? super CholetteDocument2, I> informationExtractor, ItemUI<? extends IProcDocumentView<CholetteDocument2>, I> itemUI) {
-            super(CholetteDocument2.class, itemId, informationExtractor, itemUI);
+        public ItemFactory(Id itemId, InformationExtractor<? super CholetteDocument, I> informationExtractor, ItemUI<? extends IProcDocumentView<CholetteDocument>, I> itemUI) {
+            super(CholetteDocument.class, itemId, informationExtractor, itemUI);
         }
     }
 
