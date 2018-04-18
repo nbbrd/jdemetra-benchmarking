@@ -16,10 +16,10 @@
  */
 package ec.nbdemetra.benchmarking;
 
+import ec.tss.disaggregation.documents.DentonDocument;
 import ec.nbdemetra.ws.WorkspaceFactory;
 import ec.nbdemetra.ws.WorkspaceItem;
 import ec.nbdemetra.ws.ui.WorkspaceTopComponent;
-import ec.tss.disaggregation.documents.DentonDocument;
 import ec.ui.view.tsprocessing.Ts2ProcessingViewer;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;

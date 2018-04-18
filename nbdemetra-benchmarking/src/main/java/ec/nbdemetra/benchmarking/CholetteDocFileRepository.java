@@ -21,6 +21,7 @@ import ec.nbdemetra.ws.IWorkspaceItemRepository;
 import ec.nbdemetra.ws.WorkspaceItem;
 import ec.tss.disaggregation.documents.CholetteDocument;
 import ec.tstoolkit.MetaData;
+import internal.workspace.file.CholetteDocHandler;
 import java.util.Date;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -31,12 +32,8 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = IWorkspaceItemRepository.class)
 public final class CholetteDocFileRepository extends DefaultFileItemRepository<CholetteDocument> {
 
-    public static final String REPOSITORY = "CholetteDoc";
-
-    @Override
-    public Class<CholetteDocument> getSupportedType() {
-        return CholetteDocument.class;
-    }
+    @Deprecated
+    public static final String REPOSITORY = CholetteDocHandler.REPOSITORY;
 
     @Override
     public String getRepository() {
@@ -44,9 +41,27 @@ public final class CholetteDocFileRepository extends DefaultFileItemRepository<C
     }
 
     @Override
-    public boolean save(WorkspaceItem<CholetteDocument> doc) {
-        CholetteDocument element = doc.getElement();
+    public boolean load(WorkspaceItem<CholetteDocument> item) {
+        return loadFile(item, (CholetteDocument o) -> {
+            item.setElement(o);
+            item.resetDirty();
+        });
+    }
+
+    @Override
+    public boolean save(WorkspaceItem<CholetteDocument> item) {
+        CholetteDocument element = item.getElement();
         element.getMetaData().put(MetaData.DATE, new Date().toString());
-        return super.save(doc);
+        return storeFile(item, element, item::resetDirty);
+    }
+
+    @Override
+    public boolean delete(WorkspaceItem<CholetteDocument> doc) {
+        return deleteFile(doc);
+    }
+
+    @Override
+    public Class<CholetteDocument> getSupportedType() {
+        return CholetteDocument.class;
     }
 }

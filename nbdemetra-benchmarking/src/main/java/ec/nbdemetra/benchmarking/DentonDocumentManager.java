@@ -16,6 +16,7 @@
  */
 package ec.nbdemetra.benchmarking;
 
+import ec.tss.disaggregation.documents.DentonDocument;
 import ec.nbdemetra.benchmarking.descriptors.DentonSpecUI;
 import ec.nbdemetra.benchmarking.ui.DentonViewFactory;
 import ec.nbdemetra.disaggregation.descriptors.BasicSpecUI;
@@ -25,7 +26,6 @@ import ec.nbdemetra.ws.AbstractWorkspaceItemManager;
 import ec.nbdemetra.ws.IWorkspaceItemManager;
 import ec.nbdemetra.ws.WorkspaceFactory;
 import ec.nbdemetra.ws.WorkspaceItem;
-import ec.tss.disaggregation.documents.DentonDocument;
 import ec.tss.disaggregation.documents.DentonSpecification;
 import ec.tstoolkit.descriptors.IObjectDescriptor;
 import ec.tstoolkit.utilities.Id;
