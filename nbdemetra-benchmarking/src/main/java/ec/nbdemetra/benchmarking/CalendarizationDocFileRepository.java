@@ -21,6 +21,7 @@ import ec.nbdemetra.ws.IWorkspaceItemRepository;
 import ec.nbdemetra.ws.WorkspaceItem;
 import ec.tss.disaggregation.documents.CalendarizationDocument;
 import ec.tstoolkit.MetaData;
+import internal.workspace.file.CalendarizationDocHandler;
 import java.util.Date;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -31,23 +32,36 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = IWorkspaceItemRepository.class)
 public final class CalendarizationDocFileRepository extends DefaultFileItemRepository<CalendarizationDocument> {
 
-    public static final String REPOSITORY = "CalendarizationDoc";
-    
+    @Deprecated
+    public static final String REPOSITORY = CalendarizationDocHandler.REPOSITORY;
+
     @Override
     public String getRepository() {
         return REPOSITORY;
     }
 
     @Override
+    public boolean load(WorkspaceItem<CalendarizationDocument> item) {
+        return loadFile(item, (CalendarizationDocument o) -> {
+            item.setElement(o);
+            item.resetDirty();
+        });
+    }
+
+    @Override
+    public boolean save(WorkspaceItem<CalendarizationDocument> item) {
+        CalendarizationDocument element = item.getElement();
+        element.getMetaData().put(MetaData.DATE, new Date().toString());
+        return storeFile(item, element, item::resetDirty);
+    }
+
+    @Override
+    public boolean delete(WorkspaceItem<CalendarizationDocument> doc) {
+        return deleteFile(doc);
+    }
+
+    @Override
     public Class<CalendarizationDocument> getSupportedType() {
         return CalendarizationDocument.class;
     }
-    
-    @Override
-    public boolean save(WorkspaceItem<CalendarizationDocument> doc) {
-        CalendarizationDocument element = doc.getElement();
-        element.getMetaData().put(MetaData.DATE, new Date().toString());
-        return super.save(doc);
-    }
-
 }
