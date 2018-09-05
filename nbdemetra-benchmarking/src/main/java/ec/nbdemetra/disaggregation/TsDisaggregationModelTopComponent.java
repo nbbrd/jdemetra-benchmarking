@@ -17,14 +17,11 @@
 package ec.nbdemetra.disaggregation;
 
 import ec.nbdemetra.ui.NbUtilities;
-import ec.nbdemetra.ws.WorkspaceFactory;
 import ec.nbdemetra.ws.WorkspaceItem;
 import ec.nbdemetra.ws.ui.WorkspaceTopComponent;
 import ec.tss.disaggregation.documents.TsDisaggregationModelDocument;
 import ec.ui.view.tsprocessing.RegTsProcessingViewer;
 import org.netbeans.api.settings.ConvertAsProperties;
-import org.openide.awt.ActionID;
-import org.openide.awt.ActionReference;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 
@@ -47,7 +44,7 @@ import org.openide.windows.TopComponent;
 })
 public final class TsDisaggregationModelTopComponent extends WorkspaceTopComponent<TsDisaggregationModelDocument> {
 
-    protected RegTsProcessingViewer panel;
+    protected FixedRegTsProcessingViewer panel;
 
     public TsDisaggregationModelTopComponent() {
         super(null);
@@ -63,7 +60,7 @@ public final class TsDisaggregationModelTopComponent extends WorkspaceTopCompone
         setName(getDocument().getDisplayName());
         setToolTipText(Bundle.HINT_TsDisaggregationModelTopComponent());
         initComponents();
-        panel = RegTsProcessingViewer.create(this.getDocument().getElement());
+        panel = FixedRegTsProcessingViewer.create(this.getDocument().getElement());
         add(panel);
     }
 
